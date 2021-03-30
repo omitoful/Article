@@ -19,7 +19,7 @@ struct ArtileItem {
     let date: String
     var completed: Bool
 
-    init(title: String, content: String, firstName: String, lastName: String, date: String,key: String = "", completed: Bool) {
+    init(title: String, content: String, firstName: String, lastName: String, date: String, key: String = "", completed: Bool) {
         self.ref = nil
         self.title = title
         self.content = content
@@ -49,6 +49,17 @@ struct ArtileItem {
         self.lastName = lastName
         self.date = date
         self.completed = completed
+    }
+    
+    func toAnyObject() -> Any {
+      return [
+        "firstName": firstName,
+        "lastName": lastName,
+        "date": date,
+        "title": title,
+        "content": content,
+        "completed": completed
+      ]
     }
 
 }

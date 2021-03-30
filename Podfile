@@ -6,7 +6,6 @@ target 'Article' do
   use_frameworks!
 
   # Pods for Article
-  pod 'Firebase/Analytics'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Storage'
