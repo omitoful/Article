@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>DATABASE_URL</key>
+	<string>https://article-bea31-default-rtdb.firebaseio.com/</string>
 	<key>CLIENT_ID</key>
 	<string>545310392817-r34oddah2i5aa6rljk800mrsehj0a73e.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
