@@ -9,7 +9,7 @@ import Foundation
 import Firebase
 
 struct ArtileItem {
-    
+
     let ref: DatabaseReference?
     let key: String
     let title: String
@@ -18,7 +18,7 @@ struct ArtileItem {
     let lastName: String
     let date: String
     var completed: Bool
-    
+
     init(title: String, content: String, firstName: String, lastName: String, date: String,key: String = "", completed: Bool) {
         self.ref = nil
         self.title = title
@@ -29,7 +29,7 @@ struct ArtileItem {
         self.key = key
         self.completed = completed
     }
-    
+
     init?(snapshot: DataSnapshot) {
         guard
             let value = snapshot.value as? [String: AnyObject],
@@ -50,5 +50,5 @@ struct ArtileItem {
         self.date = date
         self.completed = completed
     }
-    
+
 }
