@@ -28,17 +28,16 @@ class ArticleTableViewController: UITableViewController {
         
         // 回收 value 的值：
         ref.observe(.value, with: { snapshot in
-            print(snapshot.value as Any)
+//            print(snapshot.value as Any)
             // 再傳至 tableViewCell
-            var newItem: [ArtileItem] = []
+            var newItems: [ArtileItem] = []
             for child in snapshot.children {
                 if let snapshot = child as? DataSnapshot,
                    let articleItem = ArtileItem(snapshot: snapshot) {
-                    newItem.append(articleItem)
+                  newItems.append(articleItem)
                 }
-            }
-            
-            self.items = newItem
+              }
+            self.items = newItems
             self.tableView.reloadData()
         })
 
@@ -49,28 +48,67 @@ class ArticleTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
+    
+    // removeItem
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+      
+      if editingStyle == .delete {
+        let articleItem = items[indexPath.row]
+        articleItem.ref?.removeValue()
+      }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+      var articleItem = items[indexPath.row]
+      let toggledCompletion = !articleItem.completed
+        
+        toggleCellCheckbox(cell as! TableViewCell, isCompleted: toggledCompletion)
+
+        articleItem.ref?.updateChildValues([
+          "completed": toggledCompletion
+      ])
+    }
+    
+    func toggleCellCheckbox(_ cell: TableViewCell, isCompleted: Bool) {
+      if !isCompleted {
+        cell.likedBtn.tintColor = .systemGray
+      } else {
+        cell.likedBtn.tintColor = .red
+      }
+    }
+    
+    
+    
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return self.items.count
     }
-
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell: TableViewCell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as? TableViewCell {
-        let articleItem = self.items[indexPath.row]
+            var articleItem = self.items[indexPath.row]
         
-            cell.cellName.text = articleItem.lastName + articleItem.firstName
+            cell.cellName.text = articleItem.lastName + " " + articleItem.firstName
             cell.cellDate.text = articleItem.date
             cell.cellTitle.text = articleItem.title
             cell.cellLable.text = articleItem.content
-
-
+            
             return cell
         } else {
             let somecell: UITableViewCell = UITableViewCell()
             return somecell
+        }
+    }
+    
+    @IBAction func LogoutToLoginView(_ sender: Any) {
+        // want it to log out and delete the data
+        do {
+            try Auth.auth().signOut()
+        } catch (let error) {
+            print("Auth sign out failed: \(error)")
         }
     }
     

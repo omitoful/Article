@@ -11,6 +11,7 @@ import Firebase
 class CreateArticleViewController: UIViewController {
     
     let ref = Database.database().reference(withPath: "article-items")
+    var user = Auth.auth().currentUser!
     
     @IBOutlet weak var firstNameField: UITextField!
     @IBOutlet weak var lastNameField: UITextField!
@@ -31,7 +32,7 @@ class CreateArticleViewController: UIViewController {
         let lastName = lastNameField.text
         let date = dateField.text
         
-        let articleItem = ArtileItem(title: title!, content: content!, firstName: firstName!, lastName: lastName!, date: date!, completed: false)
+        let articleItem = ArtileItem(title: title!, content: content!, firstName: firstName!, lastName: lastName!, date: date!, completed: false, addedByUser: self.user.email!)
 
         if title!.count > 0, firstName!.count > 0, lastName!.count > 0, date!.count > 0 {
             let articleItemRef = self.ref.child("article: \(self.titleField.text!)")

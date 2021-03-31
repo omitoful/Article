@@ -20,7 +20,7 @@ class LoginViewController: UIViewController {
         Auth.auth().addStateDidChangeListener() { auth, user in
             if user != nil {
                 self.performSegue(withIdentifier: "LoginToList", sender: nil)
-                self.textFieldLoginEmail.text = nil
+                self.textFieldLoginEmail.text = self.textFieldLoginEmail.text
                 self.textFieldLoginPassword.text = nil
             }
         }
@@ -30,12 +30,17 @@ class LoginViewController: UIViewController {
         guard let email = textFieldLoginEmail.text,
               let password = textFieldLoginPassword.text,
               email.count > 0,
-              password.count > 0 else { return () }
+              password.count > 0
+        else {
+            print("???")
+            return
+        }
         Auth.auth().signIn(withEmail: email, password: password) { user, error in
             if let error = error, user == nil {
                 let alert = UIAlertController(title: "Sign In Failed",message: error.localizedDescription,preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                 
+                print("login")
                 self.present(alert, animated: true, completion: nil)
             }
         }
@@ -68,5 +73,22 @@ class LoginViewController: UIViewController {
         
         present(alert, animated: true, completion: nil)
     }
+    
+    
+    @IBAction func unwindSegueBackToLogin(segue: UIStoryboardSegue) {
+    }
+    
 }
 
+//extension LoginViewController: UITextFieldDelegate {
+//
+//  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//    if textField == textFieldLoginEmail {
+//      textFieldLoginPassword.becomeFirstResponder()
+//    }
+//    if textField == textFieldLoginPassword {
+//      textField.resignFirstResponder()
+//    }
+//    return true
+//  }
+//}
