@@ -42,6 +42,8 @@ class CreateArticleViewController: UIViewController {
             self.lastNameField.text = nil
             self.dateField.text = nil
             self.contentField.text = "Write Somthing..."
+            // unwindSeage: 
+            performSegue(withIdentifier: "backToArticle", sender: nil)
         } else {
             self.contentField.text = "Please fill the info."
         }

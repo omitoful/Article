@@ -287,11 +287,13 @@
                         <outlet property="firstNameField" destination="zwr-QA-PzD" id="JNy-Vq-k8U"/>
                         <outlet property="lastNameField" destination="t4B-8G-ScX" id="8Lw-Tl-cn9"/>
                         <outlet property="titleField" destination="QfE-SY-aio" id="1ip-2o-reB"/>
+                        <segue destination="B9w-xt-95p" kind="unwind" identifier="backToArticle" unwindAction="unwindSegueBackWithSegue:" id="aVP-lT-uEd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VyY-Qf-ZsY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="B9w-xt-95p" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2349" y="80"/>
+            <point key="canvasLocation" x="2347.826086956522" y="79.6875"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="s96-sl-eGP">

@@ -73,4 +73,9 @@ class ArticleTableViewController: UITableViewController {
             return somecell
         }
     }
+    
+    @IBAction func unwindSegueBack(segue: UIStoryboardSegue) {
+    }
+    
+    
 }
