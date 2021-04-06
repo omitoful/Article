@@ -11,25 +11,25 @@ import Firebase
 struct ArtileItem {
 
     let ref: DatabaseReference?
-    let key: String
     let title: String
     let content: String
-    let firstName: String
-    let lastName: String
     let date: String
-    let addedByUser: String
     var completed: Bool
+    let userID: String
+    let userEmail: String
+    let userName: String
+    let postID: String
 
-    init(title: String, content: String, firstName: String, lastName: String, date: String, key: String = "", completed: Bool, addedByUser: String) {
+    init(title: String, content: String, date: String, completed: Bool, userID: String, userEmail: String, userName: String, postID: String) {
         self.ref = nil
         self.title = title
         self.content = content
-        self.firstName = firstName
-        self.lastName = lastName
         self.date = date
-        self.key = key
         self.completed = completed
-        self.addedByUser = addedByUser
+        self.userID = userID
+        self.userEmail = userEmail
+        self.userName = userName
+        self.postID = postID
     }
 // easy to debug:
 //    init(snapshot: DataSnapshot) throws {
@@ -55,33 +55,35 @@ struct ArtileItem {
             let value = snapshot.value as? [String: AnyObject],
             let title = value["title"] as? String,
             let content = value["content"] as? String,
-            let firstName = value["firstName"] as? String,
-            let lastName = value["lastName"] as? String,
             let date = value["date"] as? String,
-            let addedByUser = value["addBy"] as? String,
-            let completed = value["completed"] as? Bool else {
+            let completed = value["completed"] as? Bool,
+            let userID = value["userID"] as? String,
+            let userEmail = value["userEmail"] as? String,
+            let userName = value["userName"] as? String,
+            let postID = value["postID"] as? String else {
             return nil
         }
         self.ref = snapshot.ref
-        self.key = snapshot.key
         self.title = title
         self.content = content
-        self.firstName = firstName
-        self.lastName = lastName
         self.date = date
         self.completed = completed
-        self.addedByUser = addedByUser
+        self.userID = userID
+        self.userEmail = userEmail
+        self.userName = userName
+        self.postID = postID
     }
     
     func toAnyObject() -> Any {
       return [
-        "firstName": firstName,
-        "lastName": lastName,
         "date": date,
         "title": title,
         "content": content,
         "completed": completed,
-        "addBy": addedByUser
+        "userID": userID,
+        "userEmail": userEmail,
+        "userName": userName,
+        "postID": postID
       ]
     }
 

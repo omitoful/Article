@@ -10,8 +10,7 @@ import Firebase
 
 class ArticleTableViewController: UITableViewController {
 
-    let ref = Database.database().reference(withPath: "article-items")
-    
+    let ref = Database.database().reference()
     
     var items: [ArtileItem] = []
     
@@ -24,14 +23,15 @@ class ArticleTableViewController: UITableViewController {
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         
-        
-        
         // 回收 value 的值：
-        ref.observe(.value, with: { snapshot in
-//            print(snapshot.value as Any)
+        
+        let key = self.ref.child("posts").childByAutoId().key
+        ref.child("posts").queryOrdered(byChild: "\(key)").observe(.value, with: { snapshot in
+            print(snapshot.value as Any)
             // 再傳至 tableViewCell
             var newItems: [ArtileItem] = []
             for child in snapshot.children {
+                print(child)
                 if let snapshot = child as? DataSnapshot,
                    let articleItem = ArtileItem(snapshot: snapshot) {
                   newItems.append(articleItem)
@@ -91,10 +91,11 @@ class ArticleTableViewController: UITableViewController {
         if let cell: TableViewCell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as? TableViewCell {
             var articleItem = self.items[indexPath.row]
         
-            cell.cellName.text = articleItem.lastName + " " + articleItem.firstName
+//            cell.cellName.text = ref.child()
             cell.cellDate.text = articleItem.date
             cell.cellTitle.text = articleItem.title
             cell.cellLable.text = articleItem.content
+            cell.cellName.text = articleItem.userName
             
             return cell
         } else {

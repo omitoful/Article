@@ -10,11 +10,9 @@ import Firebase
 
 class CreateArticleViewController: UIViewController {
     
-    let ref = Database.database().reference(withPath: "article-items")
+    let ref = Database.database().reference()
     var user = Auth.auth().currentUser!
     
-    @IBOutlet weak var firstNameField: UITextField!
-    @IBOutlet weak var lastNameField: UITextField!
     @IBOutlet weak var dateField: UITextField!
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var contentField: UITextView!
@@ -28,19 +26,30 @@ class CreateArticleViewController: UIViewController {
         
         let title = titleField.text
         let content = contentField.text
-        let firstName = firstNameField.text
-        let lastName = lastNameField.text
         let date = dateField.text
-        
-        let articleItem = ArtileItem(title: title!, content: content!, firstName: firstName!, lastName: lastName!, date: date!, completed: false, addedByUser: self.user.email!)
 
-        if title!.count > 0, firstName!.count > 0, lastName!.count > 0, date!.count > 0 {
-            let articleItemRef = self.ref.child("article: \(self.titleField.text!)")
-            articleItemRef.setValue(articleItem.toAnyObject())
+        if title!.count > 0, date!.count > 0 {
+            
+            if let key = ref.child("posts").childByAutoId().key {
+                
+                let articleItem = ArtileItem(title: title!, content: content!, date: date!, completed: false, userID: user.uid, userEmail: user.email!, userName: user.displayName!, postID: key)
+                
+//                let feed = ["userID": user.uid,
+//                            "userEmail": user.email,
+//                            "userName": user.displayName,
+//                            "postID": key,
+//                            "title": title,
+//                            "date": date,
+//                            "content": content]
+                
+//                let postFeed = ["\(key)": articleItem]
+//                ref.child("posts").updateChildValues(postFeed)
+                let articleItemRef = self.ref.child("posts")
+                articleItemRef.child(key).setValue(articleItem.toAnyObject())
+            }
+            
             
             self.titleField.text = nil
-            self.firstNameField.text = nil
-            self.lastNameField.text = nil
             self.dateField.text = nil
             self.contentField.text = "Write Somthing..."
             // unwindSeage: 

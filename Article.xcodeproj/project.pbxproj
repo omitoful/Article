@@ -19,6 +19,7 @@
 		914AC36A2612F68E00813D83 /* ArticleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914AC3692612F68E00813D83 /* ArticleTableViewController.swift */; };
 		914AC36D2612F6BD00813D83 /* CreateArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914AC36C2612F6BD00813D83 /* CreateArticleViewController.swift */; };
 		914AC3812613319500813D83 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914AC3802613319500813D83 /* TableViewCell.swift */; };
+		914AC3862616FD0A00813D83 /* SingUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914AC3852616FD0A00813D83 /* SingUpViewController.swift */; };
 		F3B24147122502FFCB1C4EEC /* Pods_Article.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAA27788B47B9A52F5E7C72 /* Pods_Article.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		914AC36C2612F6BD00813D83 /* CreateArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateArticleViewController.swift; sourceTree = "<group>"; };
 		914AC3802613319500813D83 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		914AC38326143A2100813D83 /* Article.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Article.entitlements; sourceTree = "<group>"; };
+		914AC3852616FD0A00813D83 /* SingUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingUpViewController.swift; sourceTree = "<group>"; };
 		92A90C4C307EB31C3920918A /* Pods-Article.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Article.release.xcconfig"; path = "Target Support Files/Pods-Article/Pods-Article.release.xcconfig"; sourceTree = "<group>"; };
 		A11F746CAB3BA877CAB605BE /* Pods-Article.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Article.debug.xcconfig"; path = "Target Support Files/Pods-Article/Pods-Article.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -119,6 +121,7 @@
 		914AC3672612F63800813D83 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				914AC3852616FD0A00813D83 /* SingUpViewController.swift */,
 				914AC30D2612BE1500813D83 /* LoginViewController.swift */,
 				914AC3692612F68E00813D83 /* ArticleTableViewController.swift */,
 				914AC3802613319500813D83 /* TableViewCell.swift */,
@@ -243,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				914AC30E2612BE1500813D83 /* LoginViewController.swift in Sources */,
+				914AC3862616FD0A00813D83 /* SingUpViewController.swift in Sources */,
 				914AC3812613319500813D83 /* TableViewCell.swift in Sources */,
 				914AC3362612CC1A00813D83 /* ArticleItem.swift in Sources */,
 				914AC36D2612F6BD00813D83 /* CreateArticleViewController.swift in Sources */,
