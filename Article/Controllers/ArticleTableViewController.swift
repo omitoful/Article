@@ -17,6 +17,7 @@ class ArticleTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableView.allowsSelection = false
         self.tableView.estimatedRowHeight = self.tableView.rowHeight
         self.tableView.rowHeight = UITableView.automaticDimension
         // if there is no comments, no lines
@@ -27,11 +28,9 @@ class ArticleTableViewController: UITableViewController {
         
         let key = self.ref.child("posts").childByAutoId().key
         ref.child("posts").queryOrdered(byChild: "\(key)").observe(.value, with: { snapshot in
-            print(snapshot.value as Any)
             // 再傳至 tableViewCell
             var newItems: [ArtileItem] = []
             for child in snapshot.children {
-                print(child)
                 if let snapshot = child as? DataSnapshot,
                    let articleItem = ArtileItem(snapshot: snapshot) {
                   newItems.append(articleItem)
@@ -58,29 +57,6 @@ class ArticleTableViewController: UITableViewController {
       }
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        guard let cell = tableView.cellForRow(at: indexPath) else { return }
-      var articleItem = items[indexPath.row]
-      let toggledCompletion = !articleItem.completed
-        
-        toggleCellCheckbox(cell as! TableViewCell, isCompleted: toggledCompletion)
-
-        articleItem.ref?.updateChildValues([
-          "completed": toggledCompletion
-      ])
-    }
-    
-    func toggleCellCheckbox(_ cell: TableViewCell, isCompleted: Bool) {
-      if !isCompleted {
-        cell.likedBtn.tintColor = .systemGray
-      } else {
-        cell.likedBtn.tintColor = .red
-      }
-    }
-    
-    
-    
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.items.count
@@ -96,6 +72,16 @@ class ArticleTableViewController: UITableViewController {
             cell.cellTitle.text = articleItem.title
             cell.cellLable.text = articleItem.content
             cell.cellName.text = articleItem.userName
+            cell.howManyLikes.text = "\(articleItem.likes) likes"
+            cell.postID = articleItem.postID
+            
+//            for person in articleItem.peopleWhoLike {
+//                if person == Auth.auth().currentUser!.uid {
+//                    cell.likedBtn.tintColor = .red
+//                }
+//            }
+            
+            
             
             return cell
         } else {
