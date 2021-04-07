@@ -26,13 +26,13 @@ class ArticleTableViewController: UITableViewController {
         
         // 回收 value 的值：
         
-        let key = self.ref.child("posts").childByAutoId().key
+        let key = self.ref.child("posts").childByAutoId().key!
         ref.child("posts").queryOrdered(byChild: "\(key)").observe(.value, with: { snapshot in
             // 再傳至 tableViewCell
             var newItems: [ArtileItem] = []
             for child in snapshot.children {
                 if let snapshot = child as? DataSnapshot,
-                   let articleItem = ArtileItem(snapshot: snapshot) {
+                   let articleItem = ArtileItem.init(snapshot: snapshot) {
                   newItems.append(articleItem)
                 }
               }
@@ -63,7 +63,7 @@ class ArticleTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+//        TableViewCell.init(postID: postID)
         if let cell: TableViewCell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as? TableViewCell {
             var articleItem = self.items[indexPath.row]
         
@@ -80,7 +80,7 @@ class ArticleTableViewController: UITableViewController {
 //                    cell.likedBtn.tintColor = .red
 //                }
 //            }
-            
+//            
             
             
             return cell

@@ -32,7 +32,7 @@ class CreateArticleViewController: UIViewController {
             
             if let key = ref.child("posts").childByAutoId().key {
                 
-                let articleItem = ArtileItem(title: title!, content: content!, date: date!, likes: 0, userID: user.uid, userEmail: user.email!, userName: user.displayName!, postID: key)
+                let articleItem = ArtileItem(title: title!, content: content!, date: date!, likes: 0, userID: user.uid, userEmail: user.email!, userName: user.displayName!, postID: key, peopleWhoLike: [""])
                 
 //                let feed = ["userID": user.uid,
 //                            "userEmail": user.email,

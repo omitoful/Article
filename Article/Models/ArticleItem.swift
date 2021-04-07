@@ -19,8 +19,9 @@ struct ArtileItem {
     let userEmail: String
     let userName: String
     let postID: String
+    let peopleWhoLike: [String]
 
-    init(title: String, content: String, date: String, likes: Int, userID: String, userEmail: String, userName: String, postID: String) {
+    init(title: String, content: String, date: String, likes: Int, userID: String, userEmail: String, userName: String, postID: String, peopleWhoLike: [String]) {
         self.ref = nil
         self.title = title
         self.content = content
@@ -30,6 +31,7 @@ struct ArtileItem {
         self.userEmail = userEmail
         self.userName = userName
         self.postID = postID
+        self.peopleWhoLike = peopleWhoLike
     }
 // easy to debug:
 //    init(snapshot: DataSnapshot) throws {
@@ -51,8 +53,7 @@ struct ArtileItem {
 //        }
     
     init?(snapshot: DataSnapshot) {
-        guard
-            let value = snapshot.value as? [String: AnyObject],
+        guard let value = snapshot.value as? [String: AnyObject],
             let title = value["title"] as? String,
             let content = value["content"] as? String,
             let date = value["date"] as? String,
@@ -60,9 +61,11 @@ struct ArtileItem {
             let userID = value["userID"] as? String,
             let userEmail = value["userEmail"] as? String,
             let userName = value["userName"] as? String,
-            let postID = value["postID"] as? String else {
+            let postID = value["postID"] as? String,
+            let peopleWhoLike = value["peopleWhoLike"] as? [String]
+            else {
             return nil
-        }
+            }
         self.ref = snapshot.ref
         self.title = title
         self.content = content
@@ -72,6 +75,7 @@ struct ArtileItem {
         self.userEmail = userEmail
         self.userName = userName
         self.postID = postID
+        self.peopleWhoLike = peopleWhoLike
     }
     
     func toAnyObject() -> Any {
@@ -83,7 +87,8 @@ struct ArtileItem {
         "userID": userID,
         "userEmail": userEmail,
         "userName": userName,
-        "postID": postID
+        "postID": postID,
+        "peopleWhoLike": peopleWhoLike
       ]
     }
 

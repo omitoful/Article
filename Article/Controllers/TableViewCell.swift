@@ -17,36 +17,76 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var howManyLikes: UILabel!
     
     var postID: String!
+//
+//    let nil: Null
+//   
+//
+//    init(postID: String) {
+//        self.postID = postID
+//        super.init(style: CellStyle.default, reuseIdentifier: nil)
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
+
     
     @IBAction func isToggle(_ sender: Any) {
         
         let ref = Database.database().reference()
-        let keyToPost = ref.child("posts").childByAutoId().key
+//        let keyToPost = ref.child("posts").childByAutoId() // ???
+        
         
         if likedBtn.tintColor == .systemGray {
             
-            ref.child("posts").child(self.postID).observeSingleEvent(of: .value, with: { snapshot in
-                if let post = snapshot.value as? [String: AnyObject] {
-                    let updatelikes: [String: Any] = ["peopleWhoLike/\(keyToPost)": Auth.auth().currentUser!.uid]
-                    ref.child("posts").child(self.postID).updateChildValues(updatelikes, withCompletionBlock: { (error, databaseRef) in
-                        if error == nil {
-                            ref.child("posts").child(self.postID).observeSingleEvent(of: .value, with: { (snap) in
-                                if let properties = snap.value as? [String: AnyObject] {
-                                    if let likes = properties["peopleWhoLike"] as? [String: AnyObject] {
-                                        let count = likes.count
-                                        self.howManyLikes.text = "\(count) likes"
-                                        
-                                        let update = ["likes": count]
-                                        ref.child("posts").child(self.postID).updateChildValues(update)
-                                    }
-                                }
-                            })
-                        }
-                    })
+            let likeRef = ref.child("posts").child(self.postID).child("peopleWhoLike").childByAutoId()
+            print("1")
+            likeRef.setValue(
+                Auth.auth().currentUser!.uid,
+                withCompletionBlock: { error, _ in
+                    print("2")
+                    if let error = error {
+                        // TODO
+                    }
+                    // Success
                 }
-            })
-            
+            )
+            print("3")
+//            ref.child("posts").child(self.postID).observeSingleEvent(of: .value, with: { snapshot in
+//                if let post = snapshot.value as? [String: AnyObject] {
+//                    let updatelikes: [String: Any] = ["peopleWhoLike/\(keyToPost)": Auth.auth().currentUser!.uid]
+//
+//                    ref.child("posts").child(self.postID).child("peopleWhoLike").child(<#T##pathString: String##String#>)
+//
+//                    ref.child("posts").child(self.postID).updateChildValues(updatelikes, withCompletionBlock: { (error, databaseRef) in
+//                        if error == nil {
+//                            ref.child("posts").child(self.postID).observeSingleEvent(of: .value, with: { (snap) in
+//                                if let properties = snap.value as? [String: AnyObject] {
+//                                    if let likes = properties["peopleWhoLike"] as? [String: AnyObject] {
+//                                        let count = likes.count
+//                                        self.howManyLikes.text = "\(count) likes"
+//
+//                                        let update = ["likes": count]
+//                                        ref.child("posts").child(self.postID).updateChildValues(update)
+//                                    }
+//                                }
+//                            })
+//                        }
+//                    })
+//                }
+//            })
+//            ref.child("posts").child(self.postID).observeSingleEvent(of: .value, with: { (snap) in
+//                if let properties = snap.value as? [String: AnyObject] {
+//                    if let likes = properties["peopleWhoLike"] as? [String: AnyObject] {
+//                        let count = likes.count
+//                        self.howManyLikes.text = "\(count) likes"
+//
+//                        let update = ["likes": count]
+//                        ref.child("posts").child(self.postID).updateChildValues(update)
+//                    }
+//                }
+//            })
             likedBtn.tintColor = .red
             ref.removeAllObservers()
             
